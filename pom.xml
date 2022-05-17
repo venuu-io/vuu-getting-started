@@ -29,7 +29,14 @@
       <groupId>io.venuu</groupId>
       <artifactId>vuu</artifactId>
       <!-- or latest stable version-->
-      <version>0.101</version>
+      <version>0.108-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.venuu</groupId>
+      <artifactId>vuu-ui</artifactId>
+      <!-- or latest stable version-->
+      <version>0.108-SNAPSHOT</version>
     </dependency>
 
   </dependencies>

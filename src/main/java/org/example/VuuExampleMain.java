@@ -47,7 +47,7 @@ public class VuuExampleMain
 
         final VuuServerConfig config = new VuuServerConfig(
                         VuuHttp2ServerOptions.apply()
-                        .withWebRoot("./")
+                        .withWebRoot(".")
                         .withSsl("src/main/resources/certs/cert.pem",
                                 "src/main/resources/certs/key.pem")
                         .withDirectoryListings(true)
@@ -60,10 +60,10 @@ public class VuuExampleMain
                         .withLoginValidator(new AlwaysHappyLoginValidator()),
                         new scala.collection.mutable.ListBuffer<ViewServerModule>().toList()
         ).withModule(SimulationModule.apply(clock, lifecycle))
-                .withModule(MetricsModule.apply(clock, lifecycle, metrics))
-                .withModule(VuiStateModule.apply(store, clock, lifecycle))
-                .withModule(TypeAheadModule.apply(clock, lifecycle))
-                .withModule(AuthNModule.apply(authenticator, loginTokenValidator, clock, lifecycle));
+         .withModule(MetricsModule.apply(clock, lifecycle, metrics))
+         .withModule(VuiStateModule.apply(store, clock, lifecycle))
+         .withModule(TypeAheadModule.apply(clock, lifecycle))
+         .withModule(AuthNModule.apply(authenticator, loginTokenValidator, clock, lifecycle));
 
 
         final VuuServer vuuServer = new VuuServer(config, lifecycle, clock, metrics);
@@ -73,7 +73,5 @@ public class VuuExampleMain
         lifecycle.start();
 
         vuuServer.join();
-
-
     }
 }
