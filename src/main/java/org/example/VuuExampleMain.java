@@ -22,6 +22,7 @@ import io.venuu.vuu.net.auth.AlwaysHappyAuthenticator;
 import io.venuu.vuu.net.http.VuuHttp2ServerOptions;
 import io.venuu.vuu.state.MemoryBackedVuiStateStore;
 import io.venuu.vuu.state.VuiStateStore;
+import org.example.module.MyExampleModule;
 
 /**
  * Hello world!
@@ -29,6 +30,11 @@ import io.venuu.vuu.state.VuiStateStore;
  */
 public class VuuExampleMain
 {
+    /*
+        //to allow self signed certs
+        chrome://flags/#allow-insecure-localhost
+    */
+
     public static void main( String[] args )
     {
 
@@ -37,8 +43,6 @@ public class VuuExampleMain
         final LifecycleContainer lifecycle = new LifecycleContainer(clock);
 
         final VuiStateStore store = new MemoryBackedVuiStateStore(100);
-
-        //store.add(VuiState(VuiHeader("chris", "latest", "chris.latest", clock.now()), VuiJsonState("{ uiState : ['chris','foo'] }")))
 
         lifecycle.autoShutdownHook();
 
@@ -63,12 +67,11 @@ public class VuuExampleMain
          .withModule(MetricsModule.apply(clock, lifecycle, metrics))
          .withModule(VuiStateModule.apply(store, clock, lifecycle))
          .withModule(TypeAheadModule.apply(clock, lifecycle))
-         .withModule(AuthNModule.apply(authenticator, loginTokenValidator, clock, lifecycle));
-
+         .withModule(AuthNModule.apply(authenticator, loginTokenValidator, clock, lifecycle))
+         //the modules above are scala, the modules below are java...
+         .withModule(new MyExampleModule().create())       ;
 
         final VuuServer vuuServer = new VuuServer(config, lifecycle, clock, metrics);
-
-        //  LifecycleGraphviz("vuu", lifecycle.dependencyGraph)
 
         lifecycle.start();
 
