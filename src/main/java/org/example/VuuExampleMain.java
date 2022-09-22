@@ -51,7 +51,9 @@ public class VuuExampleMain
 
         final VuuServerConfig config = new VuuServerConfig(
                         VuuHttp2ServerOptions.apply()
-                        .withWebRoot(".")
+                        //if we specify a web root, it means we will serve the files from a directory on the file system
+                        //if we don't the files will be served from the vuu-ui jar directly.
+                        //.withWebRoot(".")
                         .withSsl("src/main/resources/certs/cert.pem",
                                 "src/main/resources/certs/key.pem")
                         .withDirectoryListings(true)
